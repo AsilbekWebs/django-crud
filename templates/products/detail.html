@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ book.name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 20px; }
+        h2 { color: #444; }
+        .card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        img { width: 100%; border-radius: 8px; margin-top: 10px; }
+        p { margin: 8px 0; }
+        .back { margin-top: 15px; display: inline-block; padding: 8px 12px; background: #007BFF; color: #fff; border-radius: 4px; text-decoration: none; }
+        .back:hover { background: #0056b3; }
+    </style>
+    <script>
+        function showAlert() {
+            alert("📖 Siz hozir kitob tafsilotlarini ko‘ryapsiz!");
+        }
+        window.onload = showAlert;
+    </script>
+</head>
+<body>
+    <div class="card">
+        <h2>{{ book.name }}</h2>
+        <p><strong>Janr:</strong> {{ book.genre }}</p>
+        <p><strong>Narx:</strong> {{ book.price }} so‘m</p>
+        <img src="{{ book.photo.url }}" alt="{{ book.name }}">
+
+        <a href="{% url 'list_books' %}" class="back">⬅ Ro‘yxatga qaytish</a>
+        <a href="{% url 'home' %}" class="back">🏠 Bosh sahifaga qaytish</a>
+    </div>
+</body>
+</html>
+
+

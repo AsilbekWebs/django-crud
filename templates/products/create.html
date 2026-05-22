@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yangi Kitob Qo‘shish</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; }
+        h2 { color: #333; }
+        form { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
+        button { margin-top: 15px; padding: 10px 15px; background: #4CAF50; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #45a049; }
+    </style>
+    <script>
+        function validateForm() {
+            const name = document.forms["bookForm"]["name"].value;
+            const price = document.forms["bookForm"]["price"].value;
+            if (name === "" || price === "") {
+                alert("❌ Nomi va narxini to‘ldirish shart!");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+   <h2>➕ Yangi Kitob Qo‘shish</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label>Nomi:</label>
+    <input type="text" name="name"><br>
+
+    <label>Janr:</label>
+    <select name="genre">
+        <option value="artistic">Artistic</option>
+        <option value="comedy">Comedy</option>
+        <option value="historical">Historical</option>
+        <option value="adventure">Adventure</option>
+        <option value="fantastic">Fantastic</option>
+    </select><br>
+
+    <label>Narx:</label>
+    <input type="text" name="price"><br>
+
+    <label>Rasm:</label>
+    <input type="file" name="photo"><br>
+
+    <button type="submit">Qo‘shish</button>
+</form>
+
+<a href="{% url 'list_books' %}">📚 Ro‘yxatga qaytish</a>
+

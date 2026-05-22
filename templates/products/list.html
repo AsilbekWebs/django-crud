@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kitoblar Ro‘yxati</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 20px; }
+        h2 { color: #222; }
+        ul { list-style: none; padding: 0; }
+        li { background: #fff; margin: 10px 0; padding: 15px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+        a { text-decoration: none; color: #007BFF; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+    </style>
+    <script>
+        function highlightItem(item) {
+            item.style.backgroundColor = "#d1ecf1";
+        }
+    </script>
+</head>
+<body>
+    <h2>📚 Kitoblar Ro‘yxati</h2>
+    <ul>
+        {% for book in books %}
+            <li onmouseover="highlightItem(this)">
+                <a href="{% url 'book_detail' book.pk %}">
+                    {{ book.name }} — {{ book.genre }} — {{ book.price }} so‘m
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
