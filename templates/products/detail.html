@@ -4,13 +4,65 @@
     <meta charset="UTF-8">
     <title>{{ book.name }}</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #fafafa; margin: 0; padding: 20px; }
-        h2 { color: #444; }
-        .card { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
-        img { width: 100%; border-radius: 8px; margin-top: 10px; }
-        p { margin: 8px 0; }
-        .back { margin-top: 15px; display: inline-block; padding: 8px 12px; background: #007BFF; color: #fff; border-radius: 4px; text-decoration: none; }
-        .back:hover { background: #0056b3; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            margin: 0;
+            padding: 40px;
+        }
+        .card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        p {
+            margin: 10px 0;
+            color: #555;
+            font-size: 16px;
+        }
+        img {
+            width: 100%;
+            border-radius: 10px;
+            margin-top: 15px;
+            transition: transform 0.3s;
+        }
+        img:hover {
+            transform: scale(1.05);
+        }
+        .btn {
+            display: inline-block;
+            margin: 12px 8px 0 8px;
+            padding: 10px 18px;
+            background: #007BFF;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .btn-green {
+            background: #28a745;
+        }
+        .btn-green:hover {
+            background: #1e7e34;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: scale(0.95);}
+            to {opacity: 1; transform: scale(1);}
+        }
     </style>
     <script>
         function showAlert() {
@@ -20,14 +72,20 @@
     </script>
 </head>
 <body>
-    <div class="card">
-        <h2>{{ book.name }}</h2>
-        <p><strong>Janr:</strong> {{ book.genre }}</p>
-        <p><strong>Narx:</strong> {{ book.price }} so‘m</p>
-        <img src="{{ book.photo.url }}" alt="{{ book.name }}">
+    <div class="card" onmouseover="highlightCard(this)" onmouseout="resetCard(this)">
+    {% if book.photo %}
+        <a href="{% url 'book_detail' book.pk %}">
+            <img src="{{ book.photo.url }}" alt="{{ book.name }}">
+        </a>
+    {% else %}
+        <a href="{% url 'book_detail' book.pk %}">
+            <img src="/static/images/default.jpg" alt="Default image">
+        </a>
+    {% endif %}
+</div>
 
-        <a href="{% url 'list_books' %}" class="back">⬅ Ro‘yxatga qaytish</a>
-        <a href="{% url 'home' %}" class="back">🏠 Bosh sahifaga qaytish</a>
+        <a href="{% url 'list_books' %}" class="btn">⬅ Ro‘yxatga qaytish</a>
+        <a href="{% url 'home' %}" class="btn btn-green">🏠 Bosh sahifaga qaytish</a>
     </div>
 </body>
 </html>

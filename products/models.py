@@ -13,7 +13,7 @@ class Book(models.Model):
     name = models.CharField(max_length=200)
     genre = models.CharField(max_length=200, choices=GENRE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    photo = models.ImageField(upload_to='books/', default='books/default_img.avif')
+    photo = models.ImageField(upload_to='books/', default='books/default_img.jpg')
 
     def __str__(self):
         return self.name

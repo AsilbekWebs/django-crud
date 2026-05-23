@@ -4,20 +4,87 @@
     <meta charset="UTF-8">
     <title>Yangi Kitob Qo‘shish</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f4f9; margin: 0; padding: 20px; }
-        h2 { color: #333; }
-        form { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
-        label { display: block; margin-top: 10px; font-weight: bold; }
-        input, select { width: 100%; padding: 8px; margin-top: 5px; border: 1px solid #ccc; border-radius: 4px; }
-        button { margin-top: 15px; padding: 10px 15px; background: #4CAF50; color: #fff; border: none; border-radius: 4px; cursor: pointer; }
-        button:hover { background: #45a049; }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: #555;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: border-color 0.3s;
+        }
+        input:focus, select:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background: #28a745;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            color: #007BFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: scale(0.95);}
+            to {opacity: 1; transform: scale(1);}
+        }
     </style>
     <script>
         function validateForm() {
-            const name = document.forms["bookForm"]["name"].value;
-            const price = document.forms["bookForm"]["price"].value;
+            const name = document.forms["bookForm"]["name"].value.trim();
+            const price = document.forms["bookForm"]["price"].value.trim();
             if (name === "" || price === "") {
                 alert("❌ Nomi va narxini to‘ldirish shart!");
+                return false;
+            }
+            if (isNaN(price)) {
+                alert("❌ Narx faqat raqam bo‘lishi kerak!");
                 return false;
             }
             return true;
@@ -25,29 +92,34 @@
     </script>
 </head>
 <body>
-   <h2>➕ Yangi Kitob Qo‘shish</h2>
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <label>Nomi:</label>
-    <input type="text" name="name"><br>
+    <div class="container">
+        <h2>➕ Yangi Kitob Qo‘shish</h2>
+        <form name="bookForm" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+            {% csrf_token %}
+            <label for="name">Nomi:</label>
+            <input type="text" id="name" name="name" placeholder="Kitob nomini kiriting">
 
-    <label>Janr:</label>
-    <select name="genre">
-        <option value="artistic">Artistic</option>
-        <option value="comedy">Comedy</option>
-        <option value="historical">Historical</option>
-        <option value="adventure">Adventure</option>
-        <option value="fantastic">Fantastic</option>
-    </select><br>
+            <label for="genre">Janr:</label>
+            <select id="genre" name="genre">
+                <option value="">-- Janrni tanlang --</option>
+                <option value="artistic">Artistic</option>
+                <option value="comedy">Comedy</option>
+                <option value="historical">Historical</option>
+                <option value="adventure">Adventure</option>
+                <option value="fantastic">Fantastic</option>
+            </select>
 
-    <label>Narx:</label>
-    <input type="text" name="price"><br>
+            <label for="price">Narx:</label>
+            <input type="text" id="price" name="price" placeholder="Masalan: 25000">
 
-    <label>Rasm:</label>
-    <input type="file" name="photo"><br>
+            <label for="photo">Rasm:</label>
+            <input type="file" id="photo" name="photo" accept="image/*">
 
-    <button type="submit">Qo‘shish</button>
-</form>
+            <button type="submit">Qo‘shish</button>
+        </form>
+        <a href="{% url 'list_books' %}" class="back-link">📚 Ro‘yxatga qaytish</a>
+    </div>
+</body>
+</html>
 
-<a href="{% url 'list_books' %}">📚 Ro‘yxatga qaytish</a>
 

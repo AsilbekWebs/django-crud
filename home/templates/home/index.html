@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bosh sahifa</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background: #007BFF;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .btn:hover {
+            background: #0056b3;
+            transform: translateY(-3px);
+        }
+        .btn-green {
+            background: #28a745;
+        }
+        .btn-green:hover {
+            background: #1e7e34;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0; transform: scale(0.9);}
+            to {opacity: 1; transform: scale(1);}
+        }
+    </style>
+    <script>
+        function welcomeMessage() {
+            alert("👋 Xush kelibsiz! Siz bosh sahifadasiz.");
+        }
+        window.onload = welcomeMessage;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>🏠 Bosh sahifa</h2>
+        <a href="{% url 'create_book' %}" class="btn btn-green">➕ Yangi kitob qo‘shish</a>
+        <a href="{% url 'list_books' %}" class="btn">📚 Kitoblar ro‘yxati</a>
+    </div>
+</body>
+</html>
+
